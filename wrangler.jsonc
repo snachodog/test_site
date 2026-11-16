@@ -2,6 +2,9 @@
   // Static site on Cloudflare Workers static assets. Build first: npm run build
   "name": "golden-triangle-site",
   "compatibility_date": "2026-11-01",
+  // The site is served only on its custom domain.
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
