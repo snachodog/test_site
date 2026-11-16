@@ -88,7 +88,7 @@ for (const page of pages) {
   if (/15-minute/.test(text)) fail(where, 'old call length');
 
   for (const m of html.matchAll(/(?:href|src)="(\/[^"#]*)/g)) linkTargets.add(m[1]);
-  rows.push({ page: where, html_bytes: res.body.length, gzip_bytes: zlib.gzipSync(res.body).length, h: levels.join(''), noindex });
+  rows.push({ page: where, title_len: title.length, desc_len: (page.description || '').length, html_bytes: res.body.length, gzip_bytes: zlib.gzipSync(res.body).length, h: levels.join(''), noindex });
 }
 
 // Internal links and assets resolve.

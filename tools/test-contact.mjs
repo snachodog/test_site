@@ -21,8 +21,9 @@ r = await contact(post({ ...good, service: 'Something else' }), env); assert.equ
 r = await contact(post({ ...good, message: 'x'.repeat(5001) }), env); assert.equal(r.status, 400);
 r = await contact(post({ ...good, website: 'http://spam.test' }), env); assert.equal(r.status, 303);
 r = await contact(post(good, { Origin: 'https://other.test' }), env); assert.equal(r.status, 403);
+r = await contact(post(good, { Origin: 'null' }), env); assert.equal(r.status, 403);
 r = await contact(new Request('https://site.test/api/contact'), env); assert.equal(r.status, 405);
 r = await contact(post(good), {}); assert.equal(r.status, 503);
 r = await contact(post(good), { ...env, EMAIL: { send: async () => { const e = new Error('x'); e.code = 'E_DELIVERY_FAILED'; throw e; } } }); assert.equal(r.status, 502);
 assert.equal(sent.length, 2, 'only the two valid messages were sent');
-console.log('PASS: 10 contact handler cases');
+console.log('PASS: 11 contact handler cases');

@@ -39,7 +39,9 @@ export async function contact(request, env) {
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
   const url = new URL(request.url);
   const origin = request.headers.get('Origin');
-  if (origin && new URL(origin).host !== url.host) return page(403, 'Message not sent', 'The form was sent from a different website.');
+  let originHost = null;
+  try { originHost = origin ? new URL(origin).host : null; } catch { originHost = 'invalid'; }
+  if (origin && originHost !== url.host) return page(403, 'Message not sent', 'The form was sent from a different website.');
 
   let form;
   try { form = await request.formData(); } catch { return page(400, 'Message not sent', 'The form data was not readable.'); }

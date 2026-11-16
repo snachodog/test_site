@@ -26,6 +26,10 @@ Content to come (24):
 - Case study: Bashirt: one line on what Bashirt is.
 - Case study: Bashirt: image, screenshot, with private details hidden
 
-Statements to confirm, not shown on the site (2):
+Statements to confirm, not shown on the site (6):
+- Home: the home page headline changed for two principals. Old: "...from a consultant who serves on their boards". New: "...from a team that knows their boards from the inside". Approve it or give a different headline.
+- Home: "Sandra leads the client work and the project, so you always know who to call" (Home and About). Check that Sandra is the contact person for clients.
 - Home: the scope of "Nonprofit consulting". CONTEXT.md gives no detail. This text comes from the board roles and from the KPI baseline work for The Montana Dinosaur Center. Sandra leads this service.
 - Case study: Tourism grant website: the paragraph above comes from the text of tourismgrant.com. Check the names, and tell me which organization the work was done for.
+- Case study: Tourism grant website: the three officer case studies (Choteau Lions Club, The Montana Dinosaur Center, Lions District 37) say "we built" and "Work by Steve and Sandra Dogiakos", but the role line says that Steve did the work as an officer. Check that this is the attribution you want.
+- Privacy: the sentence above about Cloudflare is on the Privacy page now, but the contact form is disabled until the delivery address is set.
