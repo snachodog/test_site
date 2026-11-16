@@ -193,7 +193,7 @@ function homeBody(page, blocks) {
   const html = [`<section class="hero"><div class="container hero-grid"><div><p class="label">Golden Triangle Consulting</p>${h1(page)}
 ${lead.filter((b) => kind(b) === 'p').map((b) => `<p>${inline(b)}</p>`).join('')}${actions()}</div>${motif}</div></section>`];
   for (const s of list) {
-    if (s.closing) { html.push(`<section class="band"><div class="container">${cta(closing.heading, closing.text)}</div></section>`); continue; }
+    if (s.closing) { html.push(`<section class="band band-tight"><div class="container">${cta(closing.heading, closing.text)}</div></section>`); continue; }
     const head = `<div class="heading-block"><h2 class="h-section">${inline(s.heading)}</h2></div>`;
     let body;
     let band = '';
@@ -224,7 +224,7 @@ function workBody(page, blocks) {
   const html = [`<div class="container page-head">${h1(page)}<div class="prose">${prose(lead)}</div></div>`];
   let n = 0;
   for (const s of list) {
-    if (s.closing) { html.push(`<section class="band"><div class="container">${cta(closing.heading, closing.text)}</div></section>`); continue; }
+    if (s.closing) { html.push(`<section class="band band-tight"><div class="container">${cta(closing.heading, closing.text)}</div></section>`); continue; }
     const cards = s.blocks[0].split('\n').map((l) => {
       const m = l.match(/^- \*\*\[([^\]]+)\]\(([^)]+)\)\.\*\* (.+)$/);
       if (!m) throw new Error(`Past Work item not understood: ${l}`);
