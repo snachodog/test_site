@@ -204,9 +204,9 @@ ${lead.filter((b) => kind(b) === 'p').map((b) => `<p>${inline(b)}</p>`).join('')
     let body;
     let band = '';
     if (s.heading === 'Who we work with') {
-      band = 'band-mist';
       body = `<ul class="grid grid-4">${s.blocks[0].split('\n').map((l) => `<li class="audience">${inline(l.slice(2))}</li>`).join('')}</ul>`;
     } else if (s.heading === 'What we do') {
+      band = 'band-mist';
       body = `<div class="grid grid-4">${items(s.blocks).map((it) => `<article class="card"><h3>${inline(it.heading)}</h3>${it.blocks.map((b) => `<p>${inline(b)}</p>`).join('')}</article>`).join('')}</div>`;
     } else if (s.heading === 'Why work with us') {
       band = 'band-wash';
