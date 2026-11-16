@@ -1,0 +1,11 @@
+{
+  "name": "golden-triangle-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "check": "node tools/check.mjs",
+    "deploy": "npm run build && npm run check && wrangler deploy"
+  }
+}
