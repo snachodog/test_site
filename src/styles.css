@@ -196,6 +196,7 @@ main { flex: 1; }
 .brand {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   margin-right: auto;
   color: var(--color-ink);
   font-weight: var(--weight-bold);
@@ -280,6 +281,10 @@ main { flex: 1; }
 @media (max-width: 479px) {
   .header-book { display: none; }
   .menu-book { display: block; }
+  /* The two name lines stay on one line each at 320px. */
+  .brand { font-size: var(--text-caption); white-space: nowrap; }
+  .brand span { font-size: var(--text-label); }
+  .site-header .btn { padding: var(--space-8) var(--space-16); }
 }
 
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -460,7 +465,8 @@ h3 {
   font-weight: var(--weight-medium);
   text-align: center;
 }
-.placeholder-headshot { aspect-ratio: 4 / 5; max-width: 320px; }
+.placeholder-headshot { aspect-ratio: 4 / 5; width: 100%; max-width: 320px; }
+.headshots { display: flex; gap: var(--grid-gap); }
 .figure { margin-block: var(--space-48); }
 
 /* Pending content note (D-037) */
@@ -510,6 +516,8 @@ h3 {
 .field .error { display: none; margin-top: var(--space-8); color: var(--color-error); font-size: var(--text-caption); }
 .field :is(input, select, textarea):user-invalid { border-color: var(--color-error); }
 .field :is(input, select, textarea):user-invalid + .error { display: block; }
+/* Hidden field against automated messages. */
+.hp { position: absolute; left: -9999px; }
 .form-note { color: var(--color-slate); font-size: var(--text-caption); }
 
 /* Booking embed */

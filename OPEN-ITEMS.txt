@@ -1,17 +1,17 @@
 Open items found by src/build.mjs. This file is written again on each build.
 
-Content to come (28):
-- About: image, headshot. Placeholder image until a photo is available.
+Content to come (24):
+- About: image, headshot of Steve Dogiakos. Placeholder image until a photo is available.
+- About: image, headshot of Sandra Dogiakos. Placeholder image until a photo is available.
+- About: Sandra's background and roles. Board or officer roles, past work, and what Sandra wants clients to know.
 - About: work background. Years in this work, past jobs or fields, and how you started.
 - About: your tie to Choteau and the area.
-- Contact: form handler service and delivery address. The delivery address stays private.
 - Case study: Choteau Lions Club: image, screenshot of choteaulions.club
 - Case study: Choteau Lions Club: how the club tracked donors and raffle tickets before this work, and what went wrong.
 - Case study: Choteau Lions Club: image, screenshot of the CRM, with private data hidden
 - Case study: The Montana Dinosaur Center: image, screenshot of tmdinosaurcenter.org
 - Case study: The Montana Dinosaur Center: what did not work before this work.
 - Case study: The Montana Dinosaur Center: image, screenshot of the shop or the sync, with private data hidden
-- Case study: The Montana Dinosaur Center: address of the online collection site, for the link.
 - Case study: The Montana Dinosaur Center: image, screenshot of the collection site
 - Case study: Lions District 37: how expense claims were handled before the tracker, and what went wrong.
 - Case study: Lions District 37: image, screenshot of the claims tracker, with private data hidden
@@ -21,17 +21,11 @@ Content to come (28):
 - Case study: Badger Track Customs: store address, for the link.
 - Case study: Badger Track Customs: one or two example .store domains.
 - Case study: Badger Track Customs: image, screenshot of a town collection
-- Case study: Conservation Grains: what was slow and what you changed. Optional.
-- Case study: Tourism grant website: the organization that the work was done for, and the name of the grant program.
 - Case study: Tourism grant website: image, screenshot of tourismgrant.com
 - Case study: Tourism grant website: image, screenshot of a page that shows the brand guide in use
 - Case study: Bashirt: one line on what Bashirt is.
 - Case study: Bashirt: image, screenshot, with private details hidden
-- Privacy: name of the service that handles the form, when it is selected.
-- Privacy: date of last update.
 
-Statements to confirm, not shown on the site (4):
-- Home: the scope of "Nonprofit consulting". CONTEXT.md gives no detail. I wrote this from your board roles and from the KPI baseline work for The Montana Dinosaur Center.
-- Case study: Choteau Lions Club: the two sentences above describe the donor calling tool from its name only. Correct them if the tool works differently.
-- Case study: Conservation Grains: did this work include a move of the store from WordPress.com to self-hosted WordPress with WooCommerce? You gave this as a search term. If yes, I will add a section on the move here. If no, I will remove the search term.
-- Case study: Conservation Grains: "self-hosted n8n". You said that the self-hosting setup here was n8n automation workflows.
+Statements to confirm, not shown on the site (2):
+- Home: the scope of "Nonprofit consulting". CONTEXT.md gives no detail. This text comes from the board roles and from the KPI baseline work for The Montana Dinosaur Center. Sandra leads this service.
+- Case study: Tourism grant website: the paragraph above comes from the text of tourismgrant.com. Check the names, and tell me which organization the work was done for.

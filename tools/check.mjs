@@ -84,6 +84,8 @@ for (const page of pages) {
   for (const marker of ['[PLACEHOLDER', '[CONFIRM', '[IMAGE', '[EMBED', '&nbsp;', '](', '**']) if (text.includes(marker)) fail(where, `draft marker ${marker}`);
   if (/mailto:|tel:|[\w.+-]+@[\w-]+\.[a-z]{2,}/i.test(text.replace('name@example.com', ''))) fail(where, 'an email address or a phone link shows');
   if (/Two Medicine/i.test(text)) fail(where, 'old TMDC name');
+  if (!text.includes('Steve and Sandra Dogiakos')) fail(where, 'the two principals are not named');
+  if (/15-minute/.test(text)) fail(where, 'old call length');
 
   for (const m of html.matchAll(/(?:href|src)="(\/[^"#]*)/g)) linkTargets.add(m[1]);
   rows.push({ page: where, html_bytes: res.body.length, gzip_bytes: zlib.gzipSync(res.body).length, h: levels.join(''), noindex });

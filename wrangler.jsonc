@@ -5,9 +5,17 @@
   // The site is served only on its custom domain.
   "workers_dev": false,
   "preview_urls": false,
+  "main": "worker/index.js",
+  // The Worker script runs only for the contact form. All other paths are static files.
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  // Contact form delivery. The delivery address is the secret CONTACT_TO, not a value in this file.
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": { "CONTACT_FROM": "website@dogiakos.com" },
+  "observability": { "enabled": true }
 }

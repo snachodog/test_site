@@ -124,7 +124,7 @@ const imagePlaceholder = (b) => {
   const label = b.slice(8, -1).trim();
   const headshot = /^headshot/i.test(label);
   // One element, one class. Replace it with an <img> when the image exists.
-  const text = headshot ? 'Headshot' : label.replace(/^./, (c) => c.toUpperCase());
+  const text = (headshot ? label.split('.')[0] : label).replace(/^./, (c) => c.toUpperCase());
   return `<div class="placeholder${headshot ? ' placeholder-headshot' : ''}" role="img" aria-label="Placeholder: ${esc(label)}">${esc(text)}</div>`;
 };
 const listHtml = (b) => `<ul>${b.split('\n').map((l) => `<li>${inline(l.slice(2))}</li>`).join('')}</ul>`;
@@ -143,15 +143,21 @@ function prose(blocks) {
         break;
       case 'h3': html.push(`<h3>${inline(b.slice(4))}</h3>`); break;
       case 'pending': html.push(pendingNote(b)); break;
-      case 'image': html.push(`<div class="figure">${imagePlaceholder(b)}</div>`); break;
+      case 'image': {
+        // Headshots that follow each other go side by side.
+        const group = [b];
+        while (/^\[IMAGE: headshot/i.test(b) && /^\[IMAGE: headshot/i.test(blocks[i + 1] || '')) group.push(blocks[++i]);
+        html.push(`<div class="figure${group.length > 1 ? ' headshots' : ''}">${group.map(imagePlaceholder).join('')}</div>`);
+        break;
+      }
       case 'embed':
-        html.push(`<iframe class="embed" src="${esc(cfg.bookingEmbedUrl)}" title="Booking calendar for a call with Steve Dogiakos" loading="lazy"></iframe>`);
+        html.push(`<iframe class="embed" src="${esc(cfg.bookingEmbedUrl)}" title="Booking calendar for a call with Golden Triangle Consulting" loading="lazy"></iframe>`);
         break;
       case 'actions': html.push(actions()); break;
       case 'closing': html.push(cta(closing.heading, closing.text)); break;
       case 'list': html.push(listHtml(b)); break;
       default:
-        if (b.startsWith('*My role')) html.push(`<p class="role">${inline(b)}</p>`);
+        if (/^\*(My|Steve's) role/.test(b)) html.push(`<p class="role">${inline(b)}</p>`);
         else if (b.startsWith('Next project:')) html.push(`<p class="next">${inline(b)}</p>`);
         else html.push(`<p>${inline(b)}</p>`);
     }
@@ -190,19 +196,19 @@ const tagList = (url) => `<ul class="tags">${(tagsByUrl[url] || []).map((t) => `
 // ---------- page bodies ----------
 function homeBody(page, blocks) {
   const { lead, list } = sections(blocks);
-  const html = [`<section class="hero"><div class="container hero-grid"><div><p class="label">Golden Triangle Consulting</p>${h1(page)}
+  const html = [`<section class="hero"><div class="container hero-grid"><div><p class="label">Steve and Sandra Dogiakos</p>${h1(page)}
 ${lead.filter((b) => kind(b) === 'p').map((b) => `<p>${inline(b)}</p>`).join('')}${actions()}</div>${motif}</div></section>`];
   for (const s of list) {
     if (s.closing) { html.push(`<section class="band band-tight"><div class="container">${cta(closing.heading, closing.text)}</div></section>`); continue; }
     const head = `<div class="heading-block"><h2 class="h-section">${inline(s.heading)}</h2></div>`;
     let body;
     let band = '';
-    if (s.heading === 'Who I work with') {
+    if (s.heading === 'Who we work with') {
       band = 'band-mist';
       body = `<ul class="grid grid-4">${s.blocks[0].split('\n').map((l) => `<li class="audience">${inline(l.slice(2))}</li>`).join('')}</ul>`;
-    } else if (s.heading === 'What I do') {
+    } else if (s.heading === 'What we do') {
       body = `<div class="grid grid-4">${items(s.blocks).map((it) => `<article class="card"><h3>${inline(it.heading)}</h3>${it.blocks.map((b) => `<p>${inline(b)}</p>`).join('')}</article>`).join('')}</div>`;
-    } else if (s.heading === 'Why work with me') {
+    } else if (s.heading === 'Why work with us') {
       band = 'band-wash';
       body = `<div class="grid grid-3">${items(s.blocks).map((it) => `<div class="reason"><h3>${inline(it.heading)}</h3>${it.blocks.map((b) => `<p>${inline(b)}</p>`).join('')}</div>`).join('')}</div>`;
     } else if (s.heading === 'Recent work') {
@@ -262,8 +268,8 @@ function contactBody(page, blocks) {
   const button = blocks.find((b) => b.startsWith('Button:')).match(/\*\*(.+)\*\*/)[1];
   const note = blocks.find((b) => b.startsWith('Line below the button:')).replace('Line below the button: ', '');
   const live = Boolean(cfg.formAction);
-  const offline = live ? '' : `<p class="pending" role="note">The contact form is not connected yet. To reach me now, <a href="${BOOK}">book a time</a>.</p>`;
-  const form = `<form class="form"${live ? ` method="post" action="${esc(cfg.formAction)}"` : ''}>${offline}<fieldset${live ? '' : ' disabled'}>${fields.join('')}<div><button class="btn btn-primary" type="submit">${esc(button)}</button></div></fieldset><p class="form-note">${inline(note)}</p></form>`;
+  const offline = live ? '' : `<p class="pending" role="note">The contact form is not connected yet. To reach us now, <a href="${BOOK}">book a time</a>.</p>`;
+  const form = `<form class="form"${live ? ` method="post" action="${esc(cfg.formAction)}"` : ''}>${offline}<fieldset${live ? '' : ' disabled'}><div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>${fields.join('')}<div><button class="btn btn-primary" type="submit">${esc(button)}</button></div></fieldset><p class="form-note">${inline(note)}</p></form>`;
   return `<div class="container page-head">${h1(page)}<div class="prose">${prose(blocks.slice(0, formAt))}</div></div>
 <div class="container page-body">${form}</div>`;
 }
@@ -305,7 +311,7 @@ function shell(page, body) {
     url: cfg.siteUrl + '/',
     image: cfg.siteUrl + '/og.png',
     description: page.description,
-    founder: { '@type': 'Person', name: 'Steve Dogiakos' },
+    founder: [{ '@type': 'Person', name: 'Steve Dogiakos' }, { '@type': 'Person', name: 'Sandra Dogiakos' }],
     address: { '@type': 'PostalAddress', addressLocality: 'Choteau', addressRegion: 'MT', addressCountry: 'US' },
   })}</script>` : '';
   return `<!doctype html>
@@ -339,7 +345,7 @@ ${jsonLd}
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
 <div class="container header-inner">
-<a class="brand" href="/">Steve Dogiakos<span>Golden Triangle Consulting</span></a>
+<a class="brand" href="/">Golden Triangle Consulting<span>Steve and Sandra Dogiakos</span></a>
 <nav class="site-nav" aria-label="Primary">
 <button class="btn btn-outline menu-button" type="button" popovertarget="site-menu" aria-controls="site-menu">Menu</button>
 <ul id="site-menu" class="site-menu" popover="auto">
@@ -354,7 +360,7 @@ ${body}
 </main>
 <footer class="site-footer">
 <div class="container footer-inner">
-<p><strong>Steve Dogiakos, Golden Triangle Consulting</strong>Choteau, Montana</p>
+<p><strong>Golden Triangle Consulting</strong>Steve and Sandra Dogiakos<br>Choteau, Montana</p>
 <nav aria-label="Footer"><ul>${footerLinks.map(([u, t]) => `<li><a href="${u}">${t}</a></li>`).join('')}</ul></nav>
 </div>
 </footer>
